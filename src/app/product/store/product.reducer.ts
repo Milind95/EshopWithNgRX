@@ -17,7 +17,7 @@ const initialState: ProductState = {
         isSelected: false
     },
     {
-        id: 1,
+        id: 2,
         name: 'bread',
         logo: 'milk',
         price: 22,
@@ -25,7 +25,7 @@ const initialState: ProductState = {
         isSelected: false
     },
     {
-        id: 1,
+        id: 3,
         name: 'panner',
         logo: 'milk',
         price: 22,
@@ -45,10 +45,17 @@ export function reducer(state = initialState, action: ProductActions): ProductSt
             }
 
         case ProductActionTypes.UpdateProduct:
+
+            const products = state.products.map((product: Product) => {
+                if (product.id === action.payload.id) {
+                    return action.payload
+                } else {
+                    return product
+                }
+            })
             return {
                 ...state,
-                products: [...this.state.products,
-                action.payload]
+                products: products
             }
 
         default:
